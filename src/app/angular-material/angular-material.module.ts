@@ -1,16 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+// * Components
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    MatSlideToggleModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatToolbarModule
   ],
   exports: [
-    MatSlideToggleModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatToolbarModule
   ]
 })
 export class AngularMaterialModule { }
