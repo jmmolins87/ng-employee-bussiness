@@ -9,7 +9,7 @@ import { ConfirmMessageComponent } from './confirm-message/confirm-message.compo
 
 @NgModule({
   declarations: [
-    ConfirmMessageComponent
+    ConfirmMessageComponent,
   ],
   imports: [
     CommonModule,

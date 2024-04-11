@@ -27,3 +27,6 @@
     width: 100%;
     margin: 10px auto;
 }
+::ng-deep simple-snack-bar .mat-mdc-snack-bar-label {
+    text-align: center;
+}

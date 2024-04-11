@@ -3,11 +3,13 @@ import {
   OnInit, 
   ViewChild
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { EmployeeService } from './../../services/employee.service';
 
@@ -23,7 +25,15 @@ import { ConfirmMessageComponent } from './../../components/confirm-message/conf
 })
 export class ListEmployeeComponent implements OnInit {
 
-  public displayedColumns: string[] = ['completeName', 'phoneNumber', 'email', 'incomeDate', 'civilStatus', 'sex', 'tools'];
+  public displayedColumns: string[] = [
+    'completeName', 
+    'phoneNumber', 
+    'email', 
+    'incomeDate', 
+    'civilStatus', 
+    'sex', 
+    'tools'
+  ];
   public dataSource = new MatTableDataSource();
   public employeeList!: Employee[];
 
@@ -34,7 +44,9 @@ export class ListEmployeeComponent implements OnInit {
 
   constructor( 
     private _employeeService: EmployeeService, 
-    public dialog: MatDialog 
+    private _router: Router,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {}
   
   ngOnInit() {
@@ -53,7 +65,9 @@ export class ListEmployeeComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  openDialog( element: string ) {}
+  openDialog() {
+    this._router.navigate(['/add']);
+  }
 
   deleteEmployee( index: number ) {
 
@@ -63,9 +77,13 @@ export class ListEmployeeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe( result => {
+
       if( result === 'aceptar' ) {
         this._employeeService.deleteEmployee( index );
         this.loadEmployees();
+        this.snackBar.open('¡¡Registro eliminado con éxito!!', '', {
+          duration: 3000
+        });
       }
     });
   }

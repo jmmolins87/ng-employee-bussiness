@@ -52,4 +52,8 @@ export class EmployeeService {
   deleteEmployee( index: number ) {
     this.employeeList.splice( index, 1 );
   }
+
+  addEmployee( employee: Employee ) {
+    this.employeeList.unshift( employee );
+  }
 }

@@ -1,1 +1,133 @@
-<p>add-edit-employee works!</p>
+<div class="row">
+    <div class="col-12">
+        <h2>Agregar empleado</h2>
+    </div>
+    <div class="col-lg-5 col-sm-12">
+        <form [formGroup]="myForm" autocomplete="off">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Nombre Completo</mat-label>
+                    <input matInput formControlName="completeName">
+                </mat-form-field>
+                <!-- Si el campo es invalido o esta vacio se mostrara un mensaje de error -->
+                <div 
+                    *ngIf="myForm.get('completeName')?.invalid && myForm.get('completeName')?.touched" 
+                    class="alert alert-danger">
+                    <span>Este campo es requerido</span>
+                </div>
+                <!-- Si se pasa de 20 caráceteres se mostrara un mensaje de error -->
+                <div 
+                    *ngIf="myForm.get('completeName')?.hasError('maxlength')" 
+                    class="alert alert-danger">
+                    <span>Este campo debe tener como máximo 20 caráceteres</span>
+                </div>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="email">
+                </mat-form-field>
+                <!-- Si el campo es invalido o esta vacio se mostrara un mensaje de error -->
+                <div 
+                    *ngIf="myForm.get('email')?.touched" 
+                    class="alert alert-danger">
+                    <span>Este campo es requerido</span>
+                </div>
+                <!-- Si el campo no lleva una @ se mostrara un mensaje de error -->
+                <div 
+                    *ngIf="myForm.get('email')?.hasError('email')"
+                    class="alert alert-danger">
+                    <span>Este campo rquiere una @</span>
+                </div>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Fecha de ingreso</mat-label>
+                    <input 
+                        matInput 
+                        [matDatepicker]="picker"
+                        formControlName="incomeDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                </mat-form-field>
+                <div 
+                    *ngIf="myForm.get('incomeDate')?.invalid && myForm.get('incomeDate')?.touched" 
+                    class="alert alert-danger">
+                    <span>Este campo es requerido</span>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <mat-form-field>
+                    <mat-label>Teléfono</mat-label>
+                    <input matInput formControlName="phone">
+                </mat-form-field>
+                <div 
+                    *ngIf="myForm.get('phone')?.invalid && myForm.get('phone')?.touched" 
+                    class="alert alert-danger">
+                    <span>Este campo es requerido</span>
+                </div>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Estado civil</mat-label>
+                    <mat-select formControlName="civilStatus">
+                        <mat-option  
+                            *ngFor="let status of civilStatus" 
+                            [value]="status.id">
+                            {{ status.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div 
+                    *ngIf="myForm.get('civilStatus')?.invalid && myForm.get('civilStatus')?.touched" 
+                    class="alert alert-danger">
+                    <span>Este campo es requerido</span>
+                </div>
+            </div>
+            <div class="col-12">
+                <p class="m-0">Seleccione su sexo</p>
+                <mat-radio-group aria-label="Seleccione su sexo" formControlName="sex">
+                    <mat-radio-button value="male">Masculino</mat-radio-button>
+                    <mat-radio-button value="female">Femenino</mat-radio-button>
+                    <mat-radio-button value="undefined">Indefinido</mat-radio-button>
+                </mat-radio-group>
+                <div 
+                    *ngIf="myForm.get('sex')?.invalid && myForm.get('sex')?.touched" 
+                    class="alert alert-danger">
+                    <span>Este campo es requerido</span>
+                </div>
+            </div>
+            <div class="col-12 mt-4">
+                <div class="row">
+                    <div class="offset-6 col-3">
+                        <button 
+                            (click)="goToList()"
+                            mat-raised-button 
+                            color="warn" 
+                            type="button">
+                            Cancelar
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button 
+                            (click)="saveEmployee()"
+                            mat-raised-button 
+                            [disabled]="myForm.invalid"
+                            color="primary" 
+                            type="button">
+                            Aceptar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-5 d-none d-md-block offset-2">
+        <img 
+            src="assets/img/user.png" 
+            alt="Usuario" 
+            title="Usuario" 
+            class="img-fluid">
+    </div>
+</div>

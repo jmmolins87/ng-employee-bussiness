@@ -1,0 +1,8 @@
+
+
+::ng-deep mat-form-field {
+    width: 100%;
+}
+.alert-danger {
+    margin-top: -20px;
+}
