@@ -13,7 +13,7 @@ export class EmployeeService {
       completeName: 'Lucas Martínez',
       phoneNumber: 600000000,
       email: 'lmartinez@correo.com',
-      incomeDate: new Date('2020-01-01'),
+      incomeDate: new Date(),
       civilStatus: 'Soltero',
       sex: 'Masculino'
     },
@@ -21,7 +21,7 @@ export class EmployeeService {
       completeName: 'Rodrigo Aliaga',
       phoneNumber: 600000000,
       email: 'raliaga@correo.com',
-      incomeDate: new Date('2020-01-01'),
+      incomeDate: new Date(),
       civilStatus: 'Casado',
       sex: 'Masculino'
     },
@@ -29,7 +29,7 @@ export class EmployeeService {
       completeName: 'María Funes',
       phoneNumber: 600000000,
       email: 'mfunes@correo.com',
-      incomeDate: new Date('2020-01-01'),
+      incomeDate: new Date(),
       civilStatus: 'Casada',
       sex: 'Femenino'
     },
@@ -37,7 +37,7 @@ export class EmployeeService {
       completeName: 'Lucas Juarez',
       phoneNumber: 600000000,
       email: 'ljuarez@correo.com',
-      incomeDate: new Date('2020-01-01'),
+      incomeDate: new Date(),
       civilStatus: 'Casado',
       sex: 'Masculino'
     }
@@ -47,5 +47,9 @@ export class EmployeeService {
 
   getEmployee() {
     return this.employeeList.slice();
+  }
+
+  deleteEmployee( index: number ) {
+    this.employeeList.splice( index, 1 );
   }
 }

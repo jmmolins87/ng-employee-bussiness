@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-confirm-message',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./confirm-message.component.css']
 })
 export class ConfirmMessageComponent {
+
+  public message: string;
+  public btn: string = 'aceptar';
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmMessageComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.message = data.message;
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

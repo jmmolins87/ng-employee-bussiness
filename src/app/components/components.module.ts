@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+
 import { ConfirmMessageComponent } from './confirm-message/confirm-message.component';
 
 
@@ -10,7 +12,8 @@ import { ConfirmMessageComponent } from './confirm-message/confirm-message.compo
     ConfirmMessageComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AngularMaterialModule
   ],
   exports: [
     ConfirmMessageComponent
