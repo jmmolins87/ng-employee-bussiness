@@ -59,14 +59,18 @@ export class ListEmployeeComponent implements OnInit {
   }
 
   loadEmployees() {
-    this.employeeList = this._employeeService.getEmployee();
+    this.employeeList = this._employeeService.getEmployees();
     this.dataSource = new MatTableDataSource<any>( this.employeeList );
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  openDialog() {
-    this._router.navigate(['/add']);
+  newEmployee() {
+    this._router.navigate([ '/add' ]);
+  }
+
+  openDialog( index: number ) {
+    this._router.navigate([`/edit/${ index }`]);
   }
 
   deleteEmployee( index: number ) {

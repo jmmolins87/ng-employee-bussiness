@@ -45,7 +45,7 @@ export class EmployeeService {
 
   constructor() { }
 
-  getEmployee() {
+  getEmployees() {
     return this.employeeList.slice();
   }
 
@@ -55,5 +55,18 @@ export class EmployeeService {
 
   addEmployee( employee: Employee ) {
     this.employeeList.unshift( employee );
+  }
+
+  getEmployee( index: number ) {
+    return this.employeeList[ index ];
+  }
+
+  editEmployee( employee: Employee, index: number ) {
+    this.employeeList[ index ].completeName = employee.completeName;
+    this.employeeList[ index ].civilStatus = employee.civilStatus;
+    this.employeeList[ index ].email = employee.email;
+    this.employeeList[ index ].incomeDate = employee.incomeDate;
+    this.employeeList[ index ].phoneNumber = employee.phoneNumber;
+    this.employeeList[ index ].sex = employee.sex;
   }
 }

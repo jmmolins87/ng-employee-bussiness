@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <h2>Agregar empleado</h2>
+        <h2>{{ actionAddEdit }} empleado</h2>
     </div>
     <div class="col-lg-5 col-sm-12">
         <form [formGroup]="myForm" autocomplete="off">
@@ -88,9 +88,9 @@
             <div class="col-12">
                 <p class="m-0">Seleccione su sexo</p>
                 <mat-radio-group aria-label="Seleccione su sexo" formControlName="sex">
-                    <mat-radio-button value="male">Masculino</mat-radio-button>
-                    <mat-radio-button value="female">Femenino</mat-radio-button>
-                    <mat-radio-button value="undefined">Indefinido</mat-radio-button>
+                    <mat-radio-button value="Masculino">Masculino</mat-radio-button>
+                    <mat-radio-button value="Femenino">Femenino</mat-radio-button>
+                    <mat-radio-button value="Indefinido">Indefinido</mat-radio-button>
                 </mat-radio-group>
                 <div 
                     *ngIf="myForm.get('sex')?.invalid && myForm.get('sex')?.touched" 

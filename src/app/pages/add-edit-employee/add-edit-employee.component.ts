@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { 
+  FormBuilder, 
+  FormGroup, 
+  Validators 
+} from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -14,7 +18,7 @@ import { Employee } from '../../interface/employee.interface';
   templateUrl: './add-edit-employee.component.html',
   styleUrls: ['./add-edit-employee.component.css']
 })
-export class AddEditEmployeeComponent {
+export class AddEditEmployeeComponent implements OnInit {
 
   public civilStatus: CivilStatus[] = [
     { id: 'Soltero', name: 'Soltero' },
@@ -23,21 +27,32 @@ export class AddEditEmployeeComponent {
     { id: 'Viudo', name: 'Viudo' }
   ]
   public myForm!: FormGroup;
+  public idEmployee: any;
+  public actionAddEdit: string = 'Agregar';
 
   constructor( 
     private _route: Router, 
-    private fb: FormBuilder,
+    private _fb: FormBuilder,
     private _employeeService: EmployeeService,
+    private _aRoute: ActivatedRoute,
     public snackBar: MatSnackBar
   ) {
-    this.myForm = this.fb.group({
+    this.myForm = this._fb.group({
       completeName: ['', [ Validators.required, Validators.maxLength(20) ]],
       email: ['', [ Validators.required, Validators.email ]],
       incomeDate: ['', [ Validators.required ]],
-      phone: ['', [ Validators.required, Validators.minLength(9) ]],
-      civilStatus: ['', [ Validators.required, Validators.minLength(10) ]],
-      sex: ['', [ Validators.required, Validators.minLength(1) ]],
+      phone: ['', [ Validators.required ]],
+      civilStatus: ['', [ Validators.required ]],
+      sex: ['', [ Validators.required ]]
     })
+    this.idEmployee = this._aRoute.snapshot.params['id'];
+  }
+
+  ngOnInit() {
+    if( this.idEmployee !== undefined ) {
+      this.actionAddEdit = 'Editar';
+    }
+    this.editEmployee();
   }
 
   goToList() {
@@ -58,5 +73,25 @@ export class AddEditEmployeeComponent {
       duration: 3000
     });
     this._route.navigate(['/employees']);
+
+    if( this.idEmployee !== undefined ) {
+      this._employeeService.editEmployee( employee, this.idEmployee );
+      this.snackBar.open('¡¡Registro editado con éxito!!', '', {
+        duration: 3000
+      });
+      this._route.navigate(['/employees']);
+    }
+  }
+
+  editEmployee() {
+    const employee: Employee = this._employeeService.getEmployee( this.idEmployee );
+    this.myForm.patchValue({
+      completeName: employee.completeName,
+      email: employee.email,
+      incomeDate: employee.incomeDate,
+      phone: employee.phoneNumber,
+      civilStatus: employee.civilStatus,
+      sex: employee.sex
+    })
   }
 }
